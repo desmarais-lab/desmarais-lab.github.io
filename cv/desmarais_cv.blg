@@ -1,49 +1,49 @@
-This is BibTeX, Version 0.99d (TeX Live 2024)
+This is BibTeX, Version 0.99d (TeX Live 2025)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: desmarais_cv.aux
 The style file: plain.bst
 Database file #1: vitabib.bib
 Name 1 in "Janet Box-Steffensmeier, Dino Christenson, and Valeria Sinclair-Chapman" has a comma at the end for entry gopal2023chapter
 while executing---line 1090 of file plain.bst
-You've used 74 entries,
+You've used 75 entries,
             2118 wiz_defined-function locations,
-            959 strings with 19454 characters,
-and the built_in function-call counts, 26837 in all, are:
-= -- 2606
-> -- 1492
+            964 strings with 19665 characters,
+and the built_in function-call counts, 27139 in all, are:
+= -- 2633
+> -- 1515
 < -- 8
-+ -- 589
-- -- 506
-* -- 2096
-:= -- 4543
-add.period$ -- 230
-call.type$ -- 74
-change.case$ -- 467
++ -- 598
+- -- 514
+* -- 2117
+:= -- 4600
+add.period$ -- 233
+call.type$ -- 75
+change.case$ -- 474
 chr.to.int$ -- 0
-cite$ -- 74
-duplicate$ -- 901
-empty$ -- 1939
-format.name$ -- 506
-if$ -- 5460
+cite$ -- 75
+duplicate$ -- 911
+empty$ -- 1956
+format.name$ -- 514
+if$ -- 5518
 int.to.chr$ -- 0
-int.to.str$ -- 74
-missing$ -- 71
-newline$ -- 373
-num.names$ -- 154
-pop$ -- 409
+int.to.str$ -- 75
+missing$ -- 72
+newline$ -- 378
+num.names$ -- 156
+pop$ -- 416
 preamble$ -- 1
-purify$ -- 398
+purify$ -- 404
 quote$ -- 0
-skip$ -- 623
+skip$ -- 630
 stack$ -- 0
-substring$ -- 1655
-swap$ -- 149
+substring$ -- 1660
+swap$ -- 150
 text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 294
+type$ -- 298
 warning$ -- 0
-while$ -- 250
-width$ -- 76
-write$ -- 811
+while$ -- 252
+width$ -- 77
+write$ -- 821
 (There was 1 error message)
