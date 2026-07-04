@@ -82,7 +82,7 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 - **Method:** Logistic RSF → RF / XGBoost (tuned) + SHAP; held-out test
 - **Data file:** [`gb20.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/gb20.csv)
 - **Notebook:** [`notebooks/05_gibler_braithwaite_day2.ipynb`](notebooks/05_gibler_braithwaite_day2.ipynb)
-- **Published study:** Gibler, D. M. & Braithwaite, A., "Hostile Contiguous States" (Harvard Dataverse doi:10.7910/DVN/HQLOOJ) — a binary-response regression for whether a dyadic militarized dispute becomes **fatal**, on dyadic predictors. This is *interstate* conflict, distinct from the civil-war cases; fatal disputes are rare (~1.3%) → scored by **AUC-PR**.
+- **Published study:** Gibler, D. M. & Braithwaite, A. (2013). "Dangerous Neighbours, Regional Territorial Conflict and the Democratic Peace," *British Journal of Political Science* 43(4):877 (doi:10.1017/S000712341200052X); replication data: Harvard Dataverse doi:10.7910/DVN/HQLOOJ) — a binary-response regression for whether a dyadic militarized dispute becomes **fatal**, on dyadic predictors. This is *interstate* conflict, distinct from the civil-war cases; fatal disputes are rare (~1.3%) → scored by **AUC-PR**.
 
 **Unit of analysis:** a militarized interstate dispute-dyad; n = 20,263 (~1.3% fatal).
 
@@ -106,7 +106,7 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 - **Method:** Logistic RSF → RF / XGBoost (tuned) + SHAP + partial dependence; held-out test
 - **Data file:** [`jays_clean.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/jays_clean.csv)
 - **Notebook:** [`notebooks/06_pinyonjay_rsf_day2.ipynb`](notebooks/06_pinyonjay_rsf_day2.ipynb)
-- **Published study:** Daw, S. K. et al. (2022). "Behavior-specific occurrence patterns of Pinyon Jays." *PLoS ONE* (doi:10.1371/journal.pone.0237621; S1 Dataset, open). A **logistic resource-selection function (RSF)** — habitat *use* points (1) vs *available* points (0) on environmental predictors. Use is the minority class, so out-of-sample skill is scored by **AUC-PR** (area under the precision-recall curve).
+- **Published study:** Boone, J. D., Witt, C. & Ammon, E. M. (2021). "Behavior-specific occurrence patterns of Pinyon Jays." *PLoS ONE* (doi:10.1371/journal.pone.0237621; S1 Dataset, open). A **logistic resource-selection function (RSF)** — habitat *use* points (1) vs *available* points (0) on environmental predictors. Use is the minority class, so out-of-sample skill is scored by **AUC-PR** (area under the precision-recall curve).
 
 **Unit of analysis:** a sampled ground location -- an observed jay-**use** point vs an **available**
 (background) point; n = 466 (124 use).
@@ -136,7 +136,7 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 - **Method:** Logistic RSF → RF / XGBoost (tuned) + SHAP + partial dependence; held-out test
 - **Data file:** [`snake_clean.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/snake_clean.csv)
 - **Notebook:** [`notebooks/07_snake_rsf_day2.ipynb`](notebooks/07_snake_rsf_day2.ipynb)
-- **Published study:** Multiscale spatial model of snake habitat selection, *PLoS ONE* (doi:10.1371/journal.pone.0123307; S1 Dataset, open). A **logistic resource-selection function** — *used* (1) vs *available* (0) locations (n = 2075) on canopy cover, shrub cover, aspect, elevation and ground cover. Use-vs-availability is the ecology workhorse design → scored by **AUC-PR**.
+- **Published study:** Fill, J. M., Waldron, J. L., Welch, S. M. & Gibbons, J. W. (2015). "Using Multiscale Spatial Models to Assess Potential Surrogate Habitat for an Imperiled Reptile," *PLoS ONE* (doi:10.1371/journal.pone.0123307; S1 Dataset, open). A **logistic resource-selection function** — *used* (1) vs *available* (0) locations (n = 2075) on canopy cover, shrub cover, aspect, elevation and ground cover. Use-vs-availability is the ecology workhorse design → scored by **AUC-PR**.
 
 **Unit of analysis:** a sampled location -- a telemetry-**used** location vs an **available** location; n = 2,075.
 
