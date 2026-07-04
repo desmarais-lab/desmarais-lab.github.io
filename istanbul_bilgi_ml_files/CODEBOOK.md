@@ -49,13 +49,13 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 
 ---
 
-## 02 — Civil-war onset (Fearon–Laitin 2003)  (Day 1)
+## 02 — Civil-war onset (Fearon–Laitin 2003)  (Day 2)
 
 - **Field:** Political science / conflict
-- **Method:** Logistic regression → out-of-sample ROC / AUC-PR
+- **Method:** Logistic regression → SVM / k-NN / random forest; SHAP interpretation
 - **Data file:** [`SambnisImp.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/SambnisImp.csv)
-- **Notebook:** [`notebooks/02_fearon_laitin_day1.ipynb`](notebooks/02_fearon_laitin_day1.ipynb)
-- **Published study:** Fearon, J. D. & Laitin, D. D. (2003). "Ethnicity, Insurgency, and Civil War." *American Political Science Review* 97(1):75–90. A **logistic regression** of civil-war onset on 11 country-year predictors (Sambanis 2006 imputed data; Harvard Dataverse doi:10.7910/DVN/KRKWK8). Onset is a **rare event** (~1.6%); this example illustrates **out-of-sample classification** and the right evaluation metric for imbalanced data.
+- **Notebook:** [`notebooks/02_fearon_laitin_day2.ipynb`](notebooks/02_fearon_laitin_day2.ipynb)
+- **Published study:** Fearon, J. D. & Laitin, D. D. (2003). "Ethnicity, Insurgency, and Civil War." *American Political Science Review* 97(1):75–90. A **logistic regression** of civil-war onset on 11 country-year predictors (Sambanis 2006 imputed data; Harvard Dataverse doi:10.7910/DVN/KRKWK8). Onset is a **rare event** (~1.6%). The tutorial reproduces the logit, then extends it with **SVM, k-NN, and random forests** (honest AUC-PR on a held-out test set) and interprets the drivers with **SHAP**.
 
 **Unit of analysis:** country-year; n = 7,140 (116 civil-war onsets, ~1.6%).
 
@@ -180,13 +180,13 @@ uses ten interpretable features; the regularization section uses De Cock's full 
 
 ---
 
-## 09 — Building energy efficiency  (Day 1)
+## 09 — Building energy efficiency  (Day 2)
 
 - **Field:** Engineering
-- **Method:** Linear regression → polynomial regression (CV-selected degree); held-out test
+- **Method:** Linear regression → random forest / XGBoost regression; SHAP + partial dependence
 - **Data file:** [`ENB2012_data.xlsx`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/ENB2012_data.xlsx)
-- **Notebook:** [`notebooks/09_energy_efficiency_day1.ipynb`](notebooks/09_energy_efficiency_day1.ipynb)
-- **Published study:** Tsanas, A. & Xifara, A. (2012). "Accurate quantitative estimation of energy performance of residential buildings using statistical machine learning tools." *Energy and Buildings* 49:560–567. The paper's baseline is a **linear regression** predicting a building's heating load from 8 geometry inputs (n = 768; UCI id 242). This example illustrates the first regression extension: **polynomial terms**.
+- **Notebook:** [`notebooks/09_energy_efficiency_day2.ipynb`](notebooks/09_energy_efficiency_day2.ipynb)
+- **Published study:** Tsanas, A. & Xifara, A. (2012). "Accurate quantitative estimation of energy performance of residential buildings using statistical machine learning tools." *Energy and Buildings* 49:560–567. The paper's baseline is a **linear regression** predicting a building's heating load from 8 geometry inputs (n = 768; UCI id 242). This example gives Day 2 its regression learner tutorial: **random forest and gradient boosting**, interpreted with **SHAP and partial dependence**.
 
 **Unit of analysis:** a simulated residential **building design** (12 shapes and variants, via Ecotect); n = 768.
 
