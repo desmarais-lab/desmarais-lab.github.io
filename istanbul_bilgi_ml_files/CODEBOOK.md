@@ -15,7 +15,7 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 | 09 | 1 | Building energy efficiency | Engineering | Linear regression → polynomial regression (CV-selected degree); held-out test |
 | 10 | 1 | Wine quality | Food science / chemometrics | Multiple regression → polynomial regression (CV-selected degree); held-out test |
 | 11 | 1 | State policy liberalism (Caughey–Warshaw 2016) | American state politics | OLS → lasso / ridge / elastic net + ABESS; small-n (n=50) held-out |
-| 12 | 1 | State welfare spending | American state politics | OLS → lasso / ridge / elastic net + ABESS; small-n (n=50) held-out |
+| 12 | 1 | Election-law reform after 2000 (Palazzolo & Moscardelli 2006) | American state politics | OLS → lasso / ridge / elastic net + ABESS; small-n (n=49) held-out |
 
 
 ---
@@ -252,23 +252,29 @@ uses ten interpretable features; the regularization section uses De Cock's full 
 
 ---
 
-## 12 — State welfare spending  (Day 1)
+## 12 — Election-law reform after the 2000 election  (Day 1)
 
 - **Field:** American state politics
-- **Method:** OLS → lasso / ridge / elastic net + ABESS best subset; repeated held-out (n = 50)
-- **Data file:** [`state_welfare_spending.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/state_welfare_spending.csv)
-- **Notebook:** [`notebooks/12_state_welfare_spending_day1.ipynb`](notebooks/12_state_welfare_spending_day1.ipynb)
-- **Published study:** State welfare-effort literature (e.g., Plotnick & Winters, *APSR* 1985) — cross-sectional OLS of per-capita welfare spending on need, fiscal capacity, ideology, and labor. Data: Correlates of State Policy Project. Illustrates **regularization improving out-of-sample prediction** in a small-n design.
+- **Method:** OLS → lasso / ridge / elastic net + ABESS best subset; repeated held-out (n = 49)
+- **Data file:** [`election_law_reform.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/election_law_reform.csv)
+- **Notebook:** [`notebooks/12_election_law_reform_day1.ipynb`](notebooks/12_election_law_reform_day1.ipynb)
+- **Published study:** Palazzolo, D. J. & Moscardelli, V. G. (2006). "Policy Crisis and Political Leadership: Election Law Reform in the States after the 2000 Presidential Election." *State Politics & Policy Quarterly* 6(3):300–321 (doi:10.1177/153244000600600303). Replication data: UNC SPPQ Dataverse doi:10.15139/S3/12145. A cross-sectional OLS of states' weighted reform count on 13 predictors (49 states, Florida excluded) — a high predictor-to-observation ratio that illustrates **regularization taming over-fitting and selecting the drivers** in a small-n design.
 
-**Unit of analysis:** U.S. state (50-state cross-section, 2005–2012 average).
+**Unit of analysis:** U.S. state; n = 49 (Florida excluded as the 2000 outlier).
 
 | Variable | Definition |
 |---|---|
-| `welfare_spending_percap` | per-capita state public-welfare spending (USD) **(outcome)** |
-| `mood` | public policy mood (higher = more liberal) |
-| `citi6013` | citizen ideology (Berry et al.), higher = more liberal |
-| `ranney4_control` | Ranney index of Democratic party control |
-| `union_density` | percent unionized |
-| `evangelical_pop` | evangelical share of population |
-| `gini_coef` | income inequality (Gini) |
-| `gsppcap` | gross state product per capita (fiscal capacity) |
+| `reformwt` | weighted count of election reforms adopted (outcome) |
+| `leadindx` | leadership index |
+| `ranney` | party competitiveness (folded Ranney) |
+| `simple` | simple divided government |
+| `compound` | compound divided government |
+| `termrank` | legislative term limits |
+| `culture` | political culture |
+| `ideology` | conservative state ideology (Norrander) |
+| `fiscalin` | ratio of state revenues to expenditures |
+| `lwv_act` | interest-group mobilization (League of Women Voters) |
+| `ffactor` | winner's margin in the 2000 presidential election |
+| `residvot` | residual (uncounted) vote rate in 2000 |
+| `ffrxrv` | interaction of 2000 margin (recoded) and residual vote |
+| `commrec` | number of reform-commission recommendations |
