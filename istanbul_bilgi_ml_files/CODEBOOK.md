@@ -14,7 +14,7 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 | 08 | 1 | Ames house prices | Real estate / hedonic economics | OLS hedonic regression → lasso / ridge / elastic net (1-SE) + ABESS; held-out test |
 | 09 | 1 | Building energy efficiency | Engineering | Linear regression → polynomial regression (CV-selected degree); held-out test |
 | 10 | 1 | Wine quality | Food science / chemometrics | Multiple regression → polynomial regression (CV-selected degree); held-out test |
-| 11 | 1 | Cross-country economic growth (Fernández–Ley–Steel / Sala-i-Martin) | Comparative political economy | OLS (p≈n) → lasso / ridge / elastic net + ABESS; repeated held-out (n=72) |
+| 11 | 1 | Economic shocks & regional elite splits — Catalan Lliga (Vall-Prat 2022) | Comparative political economy | OLS (province FE) → lasso / ridge / elastic net + ABESS; repeated held-out (n=60) |
 | 12 | 1 | Election-law reform after 2000 (Palazzolo & Moscardelli 2006) | American state politics | OLS → lasso / ridge / elastic net + ABESS; small-n (n=49) held-out |
 
 
@@ -229,15 +229,15 @@ uses ten interpretable features; the regularization section uses De Cock's full 
 | `sulphates` | potassium sulphate additive (g/L) |
 | `alcohol` | alcohol (% by volume) |
 
-## 11 — Cross-country economic growth  (Day 1)
+## 11 — Economic shocks & regional elite splits (Catalan Lliga)  (Day 1)
 
-- **Field:** Comparative political economy / growth economics
-- **Method:** OLS (41 predictors) → lasso / ridge / elastic net + ABESS best subset; repeated held-out (n = 72)
-- **Data file:** [`growth_determinants.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/growth_determinants.csv)
-- **Notebook:** [`notebooks/11_growth_determinants_day1.ipynb`](notebooks/11_growth_determinants_day1.ipynb)
-- **Published study:** Fernández, C., Ley, E. & Steel, M. F. J. (2001). "Model Uncertainty in Cross-Country Growth Regressions." *Journal of Applied Econometrics* 16(5):563–576, using the growth-determinants data of Sala-i-Martin, X. (1997), "I Just Ran Two Million Regressions," *American Economic Review* 87(2):178–183. Average GDP growth for 72 countries on 41 candidate predictors (p/n ≈ 0.57) — the textbook **model-uncertainty** setting where OLS over-fits catastrophically and **regularization / variable selection** is indispensable.
+- **Field:** Comparative political economy / historical political economy
+- **Method:** OLS (province fixed effects) → lasso / ridge / elastic net + ABESS best subset; repeated held-out (n = 60)
+- **Data file:** [`catalan_lliga.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/catalan_lliga.csv)
+- **Notebook:** [`notebooks/11_economic_shocks_lliga_day1.ipynb`](notebooks/11_economic_shocks_lliga_day1.ipynb)
+- **Published study:** Vall-Prat, P. (2022). "Economic Shocks, Mobilization, and Regional Elite Splits." *Comparative Political Studies* 56(2) (doi:10.1177/00104140221089641). Replication data: Harvard Dataverse doi:10.7910/DVN/NYS9UR. A cross-sectional OLS of Catalan Lliga electoral success on the 1898 colonial trade shock + controls, with province fixed effects — 60 districts, a small-sample design where **regularization improves out-of-sample prediction and selects the drivers**.
 
-**Unit of analysis:** country; n = 72. Outcome `y` = average GDP-per-capita growth; 41 Sala-i-Martin predictors (GDP60, life expectancy, schooling, investment, rule of law, openness, regional and religious composition, etc.).
+**Unit of analysis:** Catalan electoral district; n = 60. Outcome `Lliga` = number of Lliga wins 1901–1918; key predictor `ColShock` = exposure to the 1898 colonial trade shock; controls: identity mobilization, log population, distance to Manresa, landowner dominance, Barcelona; province fixed effects.
 
 
 ## 12 — Election-law reform after the 2000 election  (Day 1)
