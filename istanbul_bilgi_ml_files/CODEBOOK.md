@@ -11,9 +11,6 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 | 05 | 2 | Militarized interstate disputes | Political science / conflict | Logistic RSF → RF / XGBoost (tuned) + SHAP; held-out test |
 | 06 | 2 | Pinyon Jay habitat selection | Ecology | Logistic RSF → RF / XGBoost (tuned) + SHAP + partial dependence; held-out test |
 | 07 | 2 | Snake occurrence / habitat | Ecology | Logistic RSF → RF / XGBoost (tuned) + SHAP + partial dependence; held-out test |
-| 08 | 1 | Ames house prices | Real estate / hedonic economics | OLS hedonic regression → lasso / ridge / elastic net (1-SE) + ABESS; held-out test |
-| 09 | 1 | Building energy efficiency | Engineering | Linear regression → polynomial regression (CV-selected degree); held-out test |
-| 10 | 1 | Wine quality | Food science / chemometrics | Multiple regression → polynomial regression (CV-selected degree); held-out test |
 | 11 | 1 | Economic shocks & regional elite splits — Catalan Lliga (Vall-Prat 2022) | Comparative political economy | OLS (province FE) → lasso / ridge / elastic net + ABESS; repeated held-out (n=60) |
 | 12 | 1 | Election-law reform after 2000 (Palazzolo & Moscardelli 2006) | American state politics | OLS → lasso / ridge / elastic net + ABESS; small-n (n=49) held-out |
 
@@ -153,81 +150,8 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 
 ---
 
-## 08 — Ames house prices  (Day 1)
 
-- **Field:** Real estate / hedonic economics
-- **Method:** OLS hedonic regression → lasso / ridge / elastic net (1-SE) + ABESS; held-out test
-- **Data file:** [`AmesHousing.txt`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/AmesHousing.txt)
-- **Notebook:** [`notebooks/08_ames_housing_day1.ipynb`](notebooks/08_ames_housing_day1.ipynb)
-- **Published study:** De Cock, D. (2011). "Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project." *Journal of Statistics Education* 19(3). The analysis is an **OLS hedonic price regression** of sale price on property features (n = 2930; data at the JSE site). This example illustrates **regularization and variable selection** in a wide model.
 
-**Unit of analysis:** a single-family residential **home sale**; n = 2,930. The printed hedonic regression
-uses ten interpretable features; the regularization section uses De Cock's full ~80-feature set.
-
-| Variable | Definition |
-|---|---|
-| `SalePrice` | sale price in USD **(outcome)** |
-| `Overall.Qual` | overall material-and-finish quality (1-10) |
-| `Gr.Liv.Area` | above-grade living area (sq ft) |
-| `Total.Bsmt.SF` | total basement area (sq ft) |
-| `Garage.Cars` | garage capacity (number of cars) |
-| `Year.Built` | year of original construction |
-| `Year.Remod.Add` | year of the last remodel/addition |
-| `Full.Bath` | full bathrooms above grade |
-| `TotRms.AbvGrd` | total rooms above grade (excludes bathrooms) |
-| `Lot.Area` | lot size (sq ft) |
-| `Fireplaces` | number of fireplaces |
-
----
-
-## 09 — Building energy efficiency  (Day 2)
-
-- **Field:** Engineering
-- **Method:** Linear regression → random forest / XGBoost regression; SHAP + partial dependence
-- **Data file:** [`ENB2012_data.xlsx`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/ENB2012_data.xlsx)
-- **Notebook:** [`notebooks/09_energy_efficiency_day2.ipynb`](notebooks/09_energy_efficiency_day2.ipynb)
-- **Published study:** Tsanas, A. & Xifara, A. (2012). "Accurate quantitative estimation of energy performance of residential buildings using statistical machine learning tools." *Energy and Buildings* 49:560–567. The paper's baseline is a **linear regression** predicting a building's heating load from 8 geometry inputs (n = 768; UCI id 242). This example gives Day 2 its regression learner tutorial: **random forest and gradient boosting**, interpreted with **SHAP and partial dependence**.
-
-**Unit of analysis:** a simulated residential **building design** (12 shapes and variants, via Ecotect); n = 768.
-
-| Variable | Definition |
-|---|---|
-| `Y1` | heating load (kWh per m^2 of floor area) **(outcome)** |
-| `X1` | relative compactness (volume-to-surface ratio, normalized) |
-| `X2` | surface area (m^2) |
-| `X3` | wall area (m^2) |
-| `X4` | roof area (m^2) |
-| `X5` | overall height (m) |
-| `X6` | orientation (2/3/4/5 = N/E/S/W) |
-| `X7` | glazing area (fraction of floor area) |
-| `X8` | glazing-area distribution (0-5 scheme) |
-
----
-
-## 10 — Wine quality  (Day 1)
-
-- **Field:** Food science / chemometrics
-- **Method:** Multiple regression → polynomial regression (CV-selected degree); held-out test
-- **Data file:** [`winequality-red.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/winequality-red.csv)
-- **Notebook:** [`notebooks/10_wine_quality_day1.ipynb`](notebooks/10_wine_quality_day1.ipynb)
-- **Published study:** Cortez, P. et al. (2009). "Modeling wine preferences by data mining from physicochemical properties." *Decision Support Systems* 47(4):547–553. The baseline is a **multiple (linear) regression** of sensory quality on 11 physicochemical measurements. Data: UCI (Vinho Verde red wine, n = 1599). This example illustrates **polynomial regression** — and using cross-validation to judge whether it is worth it.
-
-**Unit of analysis:** an individual red 'Vinho Verde' **wine sample**; n = 1,599.
-
-| Variable | Definition |
-|---|---|
-| `quality` | sensory quality, median of >=3 blind tasters (0-10) **(outcome)** |
-| `fixed.acidity` | fixed (tartaric) acidity (g/L) |
-| `volatile.acidity` | volatile (acetic) acidity (g/L) |
-| `citric.acid` | citric acid (g/L) |
-| `residual.sugar` | residual sugar (g/L) |
-| `chlorides` | chlorides / salt (g/L) |
-| `free.sulfur.dioxide` | free SO2 (mg/L) |
-| `total.sulfur.dioxide` | total SO2 (mg/L) |
-| `density` | density (g/mL) |
-| `pH` | pH |
-| `sulphates` | potassium sulphate additive (g/L) |
-| `alcohol` | alcohol (% by volume) |
 
 ## 11 — Economic shocks & regional elite splits (Catalan Lliga)  (Day 1)
 
