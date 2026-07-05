@@ -22,6 +22,8 @@ Google account you are signed into); it never runs in anyone else's account. Not
 
 | Day 1 | Economic shocks & regional elite splits — the Catalan Lliga (Vall-Prat 2022) — regularization + ABESS | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/desmarais-lab/desmarais-lab.github.io/blob/master/istanbul_bilgi_ml_files/notebooks/11_economic_shocks_lliga_day1.ipynb) |
 | Day 1 | Election-law reform after 2000 (Palazzolo & Moscardelli) — regularization + ABESS (49-state design) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/desmarais-lab/desmarais-lab.github.io/blob/master/istanbul_bilgi_ml_files/notebooks/12_election_law_reform_day1.ipynb) |
+| Day 1 | Determinants of perceived ageism (Du et al. 2025) — reproduce + LASSO | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/desmarais-lab/desmarais-lab.github.io/blob/master/istanbul_bilgi_ml_files/notebooks/13_perceived_ageism_day1.ipynb) |
+| Day 1 | Advance-care-planning engagement (Han et al. 2025) — reproduce + regularization | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/desmarais-lab/desmarais-lab.github.io/blob/master/istanbul_bilgi_ml_files/notebooks/14_surrogate_acp_day1.ipynb) |
 
 ## Contents
 - `notebooks/` — the ten tutorials (Python).

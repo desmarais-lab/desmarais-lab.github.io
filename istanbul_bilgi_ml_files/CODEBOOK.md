@@ -13,6 +13,8 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 | 07 | 2 | Snake occurrence / habitat | Ecology | Logistic RSF → RF / XGBoost (tuned) + SHAP + partial dependence; held-out test |
 | 11 | 1 | Economic shocks & regional elite splits — Catalan Lliga (Vall-Prat 2022) | Comparative political economy | OLS (province FE) → lasso / ridge / elastic net + ABESS; repeated held-out (n=60) |
 | 12 | 1 | Election-law reform after 2000 (Palazzolo & Moscardelli 2006) | American state politics | OLS → lasso / ridge / elastic net + ABESS; small-n (n=49) held-out |
+| 13 | 1 | Determinants of perceived ageism (Du et al. 2025) | Gerontology / public health | OLS → LASSO selection + ridge/enet + ABESS; held-out (n=484) |
+| 14 | 1 | Advance-care-planning engagement (Han et al. 2025) | Health services research | OLS → lasso/ridge/elastic net; held-out (n=276) |
 
 
 ---
@@ -190,3 +192,19 @@ A guide to the ten reproduce-then-extend applications in this course. Each tutor
 | `residvot` | residual (uncounted) vote rate in 2000 |
 | `ffrxrv` | interaction of 2000 margin (recoded) and residual vote |
 | `commrec` | number of reform-commission recommendations |
+
+## 13 — Determinants of perceived ageism (Du et al. 2025)  (Day 1)
+
+- **Field:** Gerontology / public health
+- **Method:** OLS → LASSO variable selection (as the authors used) + ridge / elastic net + ABESS; repeated held-out (n = 484)
+- **Data file:** [`perceived_ageism.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/perceived_ageism.csv)
+- **Notebook:** [`notebooks/13_perceived_ageism_day1.ipynb`](notebooks/13_perceived_ageism_day1.ipynb)
+- **Published study:** Du, J., Wang, M. & Wu, X. (2025). "The current status and determinants of perceived ageism among community-dwelling older adults." *PLOS ONE* 20 (doi:10.1371/journal.pone.0330254; S1 Dataset). Multiple regression of perceived ageism on 8 LASSO-selected predictors (n=484); reproduces the reported determinants (education, vision, hearing) and the authors' LASSO selection.
+
+## 14 — Advance-care-planning engagement (Han et al. 2025)  (Day 1)
+
+- **Field:** Health services research
+- **Method:** OLS → lasso / ridge / elastic net; repeated held-out (n = 276)
+- **Data file:** [`surrogate_acp.csv`](https://raw.githubusercontent.com/desmarais-lab/desmarais-lab.github.io/master/istanbul_bilgi_ml_files/data/surrogate_acp.csv)
+- **Notebook:** [`notebooks/14_surrogate_acp_day1.ipynb`](notebooks/14_surrogate_acp_day1.ipynb)
+- **Published study:** Han, Z., Su, J. & Ma, G. (2025). "Factors influencing the participation of surrogate decision-makers for advance care planning." *PLOS ONE* 20 (doi:10.1371/journal.pone.0325551; S1 Dataset). Multiple regression of surrogate ACP-engagement on personal/clinical factors (n=276); reproduces the reported positive predictors (decision experience, education, ACP knowledge, treatment expenditure).
