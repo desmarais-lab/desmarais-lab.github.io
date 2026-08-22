@@ -106,7 +106,9 @@ async function loadAll() {
     const entry = c.name + (c.type === "readings" && c.reading ? " — " + c.reading : "");
     if (row.slots.some(s => s.startsWith(c.name))) continue;      // duplicate click
     if (row.slots[0] === "OPEN")      { row.slots[0] = entry; row.p1 = true; }
-    else if (row.slots[1] === "OPEN") { row.slots[1] = entry; row.p2 = true; }
+    else if (row.slots[1] === "OPEN" && !rows.some(r => r.slots[0] === "OPEN")) {
+      row.slots[1] = entry; row.p2 = true;   // Slot 2 opens only once every Slot 1 is full
+    }
   }
   state = sheets;
   render();
@@ -128,8 +130,9 @@ function render() {
   const sel = document.getElementById("cweek");
   const key = document.getElementById("ctype").value;
   sel.innerHTML = "";
+  const anyS1Open = state[key].some(r => r.slots[0] === "OPEN");
   for (const r of state[key]) {
-    if (r.slots[0] === "OPEN" || r.slots[1] === "OPEN") {
+    if (r.slots[0] === "OPEN" || (!anyS1Open && r.slots[1] === "OPEN")) {
       const o = document.createElement("option");
       o.value = r.date; o.textContent = r.date + " — " + r.topic;
       sel.appendChild(o);
