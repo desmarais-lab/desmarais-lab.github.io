@@ -78,18 +78,20 @@ function parseSheet(md) {
 
 async function loadAll() {
   const bust = "?t=" + Date.now();
-  const [mMd, rMd, qRes] = await Promise.all([
+  const [mMd, rMd, qRes, procTxt] = await Promise.all([
     fetch(RAW + SHEETS.methods + bust).then(r => r.text()),
     fetch(RAW + SHEETS.readings + bust).then(r => r.text()),
-    fetch(NTFY + "/json?poll=1&since=all").then(r => r.text()).catch(() => "")
+    fetch(NTFY + "/json?poll=1&since=all").then(r => r.text()).catch(() => ""),
+    fetch(RAW + "processed.json" + bust).then(r => r.json()).catch(() => ({processed: []}))
   ]);
+  const processed = new Set(procTxt.processed || []);
   const sheets = { methods: parseSheet(mMd), readings: parseSheet(rMd) };
   const queue = [];
   for (const line of qRes.split("\n")) {
     if (!line.trim()) continue;
     try {
       const ev = JSON.parse(line);
-      if (ev.event !== "message") continue;
+      if (ev.event !== "message" || processed.has(ev.id)) continue;
       const c = JSON.parse(ev.message);
       if (c && c.type in sheets && c.week && c.name)
         queue.push({ time: ev.time, id: ev.id, ...c });
