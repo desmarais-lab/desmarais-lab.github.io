@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLSC 508 Presentation Sign-ups</title>
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #222; background: #fff; }
+  h1 { font-size: 1.6rem; border-bottom: 3px solid #1E407C; padding-bottom: .4rem; }
+  h2 { font-size: 1.2rem; color: #1E407C; margin-top: 2rem; }
+  p.note { color: #444; }
+  table { border-collapse: collapse; width: 100%; margin: .75rem 0 1.5rem; font-size: .95rem; }
+  th, td { border: 1px solid #bbb; padding: .45rem .6rem; text-align: left; vertical-align: top; }
+  th { background: #f0f3f8; }
+  td.open { color: #1a7a1a; font-weight: bold; }
+  td.taken { color: #333; }
+  td.pending { color: #8a6d00; font-style: italic; }
+  form { border: 1px solid #bbb; background: #fafafa; padding: 1rem 1.25rem; margin: 1rem 0 2rem; }
+  label { display: block; margin: .6rem 0 .2rem; font-weight: bold; }
+  select, input[type=text] { width: 100%; max-width: 460px; padding: .4rem; font-size: 1rem; font-family: inherit; }
+  button { margin-top: 1rem; background: #1E407C; color: #fff; border: 0; padding: .55rem 1.4rem; font-size: 1rem; cursor: pointer; }
+  button:disabled { background: #999; }
+  #result { margin-top: .9rem; font-weight: bold; }
+  #result.ok { color: #1a7a1a; }
+  #result.err { color: #a11; }
+  .stamp { color: #777; font-size: .85rem; }
+</style>
+</head>
+<body>
+<h1>PLSC 508 (Fall 2026) &mdash; Presentation Sign-ups</h1>
+<p class="note">Claim a <strong>Methods Tutorial</strong> week or an <strong>Application Reading Review</strong> week below.
+No account of any kind is needed. Claims are honored strictly in the order received (the queue is stamped
+by the server the moment you submit). Slot&nbsp;2 of a week is used only once Slot&nbsp;1 is full, and the
+form assigns you the first open slot automatically. <strong>Sign up by Friday, August 28.</strong></p>
+
+<form id="claimform">
+  <label for="ctype">What are you signing up for?</label>
+  <select id="ctype">
+    <option value="methods">Methods Tutorial</option>
+    <option value="readings">Application Reading Review</option>
+  </select>
+  <label for="cweek">Week</label>
+  <select id="cweek"></select>
+  <div id="readingwrap" style="display:none">
+    <label for="creading">Reading you will review (author(s) and year)</label>
+    <input type="text" id="creading" maxlength="120" placeholder="e.g., Dorff and Ward 2013">
+  </div>
+  <label for="cname">Your name (as it should appear on the sheet)</label>
+  <input type="text" id="cname" maxlength="80" autocomplete="name">
+  <button type="submit" id="gobtn">Claim slot</button>
+  <div id="result"></div>
+</form>
+
+<h2>Methods Tutorials</h2>
+<div id="methods_tbl">Loading&hellip;</div>
+<h2>Application Reading Reviews</h2>
+<div id="readings_tbl">Loading&hellip;</div>
+<p class="stamp" id="refreshed"></p>
+<p class="note">Entries marked <em>pending</em> have been received and will appear on the official
+sheets within about ten minutes. The official record lives in the
+<a href="https://github.com/bdesmarais/plsc508-fa26-signups">sign-up repository</a>.</p>
+
+<script>
+const RAW = "https://raw.githubusercontent.com/bdesmarais/plsc508-fa26-signups/main/";
+const NTFY = "https://ntfy.sh/plsc508-fa26-e8ddb68250d6d5bab956";
+const SHEETS = { methods: "METHODS.md", readings: "READINGS.md" };
+let state = null;
+
+function parseSheet(md) {
+  const rows = [];
+  for (const line of md.split("\n")) {
+    const m = line.match(/^\|\s*(\d\d\/\d\d)\s*\|([^|]*)\|([^|]*)\|([^|]*)\|/);
+    if (m) rows.push({ date: m[1], topic: m[2].trim(),
+                       slots: [m[3].trim(), m[4].trim()] });
+  }
+  return rows;
+}
+
+async function loadAll() {
+  const bust = "?t=" + Date.now();
+  const [mMd, rMd, qRes] = await Promise.all([
+    fetch(RAW + SHEETS.methods + bust).then(r => r.text()),
+    fetch(RAW + SHEETS.readings + bust).then(r => r.text()),
+    fetch(NTFY + "/json?poll=1&since=all").then(r => r.text()).catch(() => "")
+  ]);
+  const sheets = { methods: parseSheet(mMd), readings: parseSheet(rMd) };
+  const queue = [];
+  for (const line of qRes.split("\n")) {
+    if (!line.trim()) continue;
+    try {
+      const ev = JSON.parse(line);
+      if (ev.event !== "message") continue;
+      const c = JSON.parse(ev.message);
+      if (c && c.type in sheets && c.week && c.name)
+        queue.push({ time: ev.time, id: ev.id, ...c });
+    } catch (e) { /* ignore non-claim messages */ }
+  }
+  queue.sort((a, b) => a.time - b.time || (a.id < b.id ? -1 : 1));
+  // overlay queued claims onto sheet state, in order, with the processor's rules
+  for (const c of queue) {
+    const rows = sheets[c.type];
+    const row = rows.find(r => r.date === c.week);
+    if (!row) continue;
+    const entry = c.name + (c.type === "readings" && c.reading ? " — " + c.reading : "");
+    if (row.slots.some(s => s.startsWith(c.name))) continue;      // duplicate click
+    if (row.slots[0] === "OPEN")      { row.slots[0] = entry; row.p1 = true; }
+    else if (row.slots[1] === "OPEN") { row.slots[1] = entry; row.p2 = true; }
+  }
+  state = sheets;
+  render();
+}
+
+function render() {
+  for (const key of ["methods", "readings"]) {
+    let h = "<table><tr><th>Date</th><th>Topic</th><th>Slot 1</th><th>Slot 2</th></tr>";
+    for (const r of state[key]) {
+      const cell = (v, pend) =>
+        v === "OPEN" ? '<td class="open">OPEN</td>'
+                     : '<td class="' + (pend ? 'pending">' : 'taken">') +
+                       v.replace(/&/g,"&amp;").replace(/</g,"&lt;") + (pend ? " (pending)" : "") + "</td>";
+      h += "<tr><td>" + r.date + "</td><td>" + r.topic + "</td>" +
+           cell(r.slots[0], r.p1) + cell(r.slots[1], r.p2) + "</tr>";
+    }
+    document.getElementById(key + "_tbl").innerHTML = h + "</table>";
+  }
+  const sel = document.getElementById("cweek");
+  const key = document.getElementById("ctype").value;
+  sel.innerHTML = "";
+  for (const r of state[key]) {
+    if (r.slots[0] === "OPEN" || r.slots[1] === "OPEN") {
+      const o = document.createElement("option");
+      o.value = r.date; o.textContent = r.date + " — " + r.topic;
+      sel.appendChild(o);
+    }
+  }
+  if (!sel.options.length) {
+    const o = document.createElement("option");
+    o.value = ""; o.textContent = "(no open weeks remain)";
+    sel.appendChild(o);
+  }
+  document.getElementById("readingwrap").style.display = key === "readings" ? "" : "none";
+  document.getElementById("refreshed").textContent =
+    "Availability refreshed " + new Date().toLocaleTimeString() + ". It refreshes automatically.";
+}
+
+document.getElementById("ctype").addEventListener("change", render);
+
+document.getElementById("claimform").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const res = document.getElementById("result");
+  const type = document.getElementById("ctype").value;
+  const week = document.getElementById("cweek").value;
+  const clean = s => s.replace(/[|\n\r]/g, " ").trim();
+  const name = clean(document.getElementById("cname").value);
+  const reading = clean(document.getElementById("creading").value);
+  res.className = "err";
+  if (!week)  { res.textContent = "No open weeks are available."; return; }
+  if (!name)  { res.textContent = "Please enter your name."; return; }
+  if (type === "readings" && !reading) { res.textContent = "Please state the reading you will review."; return; }
+  const btn = document.getElementById("gobtn");
+  btn.disabled = true; res.className = ""; res.textContent = "Submitting…";
+  try {
+    const payload = { type, week, name };
+    if (type === "readings") payload.reading = reading;
+    const r = await fetch(NTFY, { method: "POST", body: JSON.stringify(payload) });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    res.className = "ok";
+    res.textContent = "Claim received. Your name will show as pending below right away " +
+                      "and moves onto the official sheet within about ten minutes.";
+    document.getElementById("cname").value = ""; document.getElementById("creading").value = "";
+    setTimeout(loadAll, 800);
+  } catch (e) {
+    res.className = "err";
+    res.textContent = "Submission did not go through (" + e.message + "). Please try again.";
+  }
+  btn.disabled = false;
+});
+
+loadAll();
+setInterval(loadAll, 30000);
+</script>
+</body>
+</html>
