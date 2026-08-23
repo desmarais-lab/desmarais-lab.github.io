@@ -129,7 +129,11 @@ function render() {
   }
   const sel = document.getElementById("cweek");
   const key = document.getElementById("ctype").value;
+  const keep = sel.value;
   sel.innerHTML = "";
+  const ph = document.createElement("option");
+  ph.value = ""; ph.textContent = "\u2014 select a week \u2014"; ph.disabled = true; ph.selected = true;
+  sel.appendChild(ph);
   const anyS1Open = state[key].some(r => r.slots[0] === "OPEN");
   for (const r of state[key]) {
     if (r.slots[0] === "OPEN" || (!anyS1Open && r.slots[1] === "OPEN")) {
@@ -138,10 +142,10 @@ function render() {
       sel.appendChild(o);
     }
   }
-  if (!sel.options.length) {
-    const o = document.createElement("option");
-    o.value = ""; o.textContent = "(no open weeks remain)";
-    sel.appendChild(o);
+  if (sel.options.length === 1) {
+    ph.textContent = "(no open weeks remain)";
+  } else if (keep && [...sel.options].some(o => o.value === keep)) {
+    sel.value = keep;   // keep the student's explicit pick across auto-refreshes
   }
   document.getElementById("readingwrap").style.display = key === "readings" ? "" : "none";
   document.getElementById("refreshed").textContent =
@@ -159,7 +163,7 @@ document.getElementById("claimform").addEventListener("submit", async ev => {
   const name = clean(document.getElementById("cname").value);
   const reading = clean(document.getElementById("creading").value);
   res.className = "err";
-  if (!week)  { res.textContent = "No open weeks are available."; return; }
+  if (!week)  { res.textContent = "Please select a week."; return; }
   if (!name)  { res.textContent = "Please enter your name."; return; }
   if (type === "readings" && !reading) { res.textContent = "Please state the reading you will review."; return; }
   const btn = document.getElementById("gobtn");
