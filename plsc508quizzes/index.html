@@ -7,47 +7,26 @@
 <style>
   body { font-family: Georgia, 'Times New Roman', serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #222; }
   h1 { font-size: 1.5rem; border-bottom: 3px solid #1E407C; padding-bottom: .4rem; }
-  input { padding: .45rem; font-size: 1rem; width: 240px; font-family: inherit; }
-  button { background: #1E407C; color: #fff; border: 0; padding: .5rem 1.2rem; font-size: 1rem; cursor: pointer; margin-left: .4rem; }
-  #err { color: #a11; font-weight: bold; margin-top: .6rem; }
-  .quiz h2 { font-size: 1.15rem; color: #1E407C; margin-top: 1.6rem; }
-  .item { margin: .7rem 0; }
-  .ans { font-weight: bold; }
+  li { margin: .35rem 0; }
 </style>
 </head>
 <body>
 <h1>PLSC 508 &mdash; Quiz Answers</h1>
-<p>Enter the passcode announced in class.</p>
-<form id="f"><input type="password" id="pc" autocomplete="off" placeholder="passcode">
-<button type="submit">Unlock</button></form>
-<div id="err"></div>
-<div id="out"></div>
-<script>
-const BLOB = {"salt": "GIRJEvUKM16lp+M5CoQraw==", "iv": "tF8A1eurMDVSAg9F", "ct": "drkFZrT1KPTBPNFjfqDhqnVnG+FxKT/ocJEB7ByDlrSnZFgwKkYipdUrp0JJ6PrscNraR1XAdNU1JszJoHYW28nxxGIllr7F23XKlDlZj6zv0cwHitkpPG0cKuso1RHOCqxdqzFapp/xcCPb/KQjjfETlbbmo4Gos8EmpMMJ9qzkWxrlXD2zmHq8Z6RGW0wPZW6C5dSR40ocYoC1R10TgGSviLjwyKU4C6eIt7KAW934/cwxlqFSrp3UtDQ1G1sH7mv/FbXnwnxjhZE6PzPHB+J1mcQK1KPUvG1auK2ci3fD5ToVm9WDyNsFJV03BSJLK+rohGolNJn9bqEHqNUqmlEIPkhve34iPNYMIz3v2n2DaFwxFIM22+zEKAiJfA3UHMD84AKN29WefBDMiwKwiIxdBk2MkTwdGVnsfQFBW8zNQenSrZUNmn5g2VZ2lENBxsAPyiHqsKfayCI06q0FWamBtiDKOn9sEiwSEolNM/EF2YBidMfqKXvo5evovYF6wxchGo3l8oh13NapTy0QjSJbT86dNVeDptU/NUnZhYuA6ekv3wx4ZUSh0fiSINrE0JhNBmqiv9PQZkry2M2eNa8+NbXKY+tnvvNjkVF19EPRG2QjypVK69mh8kOcrBbAVy5r0KNw3OWHiRezIGfH5SDiqk1XUTdVjrZWAkIcAC/aiqyasEqrwuWWObtpNf0w7iS/Gpv6eAnulV7YEYSI55CdKstOpXS6bA5VEmjdlhQDpO6VLXVtzwZiP2rD9J539H6uHHyiYrM4zccw796RwZFdqFd8SVrpRAjb8qQtRBtv889TkIen8b+/3s006fmtq+3agF+3wTNWwJD3I4HN2L4e35/sabWu6S4mm5p76PdkeviDfttQGQnFiPIWeRRCvDUQh+JxQALURidapA7qqlNPUHdg0VUwdIA/OahVq6JPWTDR2oI0OaqrvoaTXnSjIY38n+x4afKdHKRyj+SQjstsjcNyiFwi1/2gdyxJP/jNvf3vpk6bRN1Hw9g813rAsx2p", "iters": 200000};
-const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-document.getElementById("f").addEventListener("submit", async ev => {
-  ev.preventDefault();
-  const err = document.getElementById("err"); err.textContent = "";
-  const pc = document.getElementById("pc").value.trim();
-  try {
-    const km = await crypto.subtle.importKey("raw", new TextEncoder().encode(pc), "PBKDF2", false, ["deriveKey"]);
-    const key = await crypto.subtle.deriveKey(
-      { name: "PBKDF2", salt: b64(BLOB.salt), iterations: BLOB.iters, hash: "SHA-256" },
-      km, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
-    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(BLOB.iv) }, key, b64(BLOB.ct));
-    const data = JSON.parse(new TextDecoder().decode(pt));
-    let h = "";
-    for (const qz of data.quizzes) {
-      h += '<div class="quiz"><h2>' + qz.title + "</h2>";
-      for (const it of qz.items)
-        h += '<div class="item">Question ' + it.q + ': <span class="ans">(' + it.answer + ')</span> &mdash; ' + it.why + "</div>";
-      h += "</div>";
-    }
-    document.getElementById("out").innerHTML = h;
-  } catch (e) {
-    err.textContent = "Incorrect passcode.";
-  }
-});
-</script>
+<p>Each quiz has its own page and its own passcode, announced in class after the quiz.</p>
+<ul>
+<li><a href="https://brucedesmarais.com/plsc508quiz0901/">Quiz of 09/01</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz0908/">Quiz of 09/08</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz0915/">Quiz of 09/15</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz0922/">Quiz of 09/22</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz0929/">Quiz of 09/29</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1006/">Quiz of 10/06</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1013/">Quiz of 10/13</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1020/">Quiz of 10/20</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1027/">Quiz of 10/27</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1103/">Quiz of 11/03</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1110/">Quiz of 11/10</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1117/">Quiz of 11/17</a></li>
+<li><a href="https://brucedesmarais.com/plsc508quiz1201/">Quiz of 12/01</a></li>
+</ul>
 </body>
 </html>

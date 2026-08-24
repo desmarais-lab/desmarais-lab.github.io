@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLSC 508 Quiz 09/01 Answers</title>
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { font-size: 1.5rem; border-bottom: 3px solid #1E407C; padding-bottom: .4rem; }
+  input { padding: .45rem; font-size: 1rem; width: 240px; font-family: inherit; }
+  button { background: #1E407C; color: #fff; border: 0; padding: .5rem 1.2rem; font-size: 1rem; cursor: pointer; margin-left: .4rem; }
+  #err { color: #a11; font-weight: bold; margin-top: .6rem; }
+  .quiz h2 { font-size: 1.15rem; color: #1E407C; margin-top: 1.6rem; }
+  .item { margin: .7rem 0; }
+  .ans { font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>PLSC 508 &mdash; Quiz Answers, 09/01</h1>
+<p>Enter the passcode announced in class.</p>
+<form id="f"><input type="password" id="pc" autocomplete="off" placeholder="passcode">
+<button type="submit">Unlock</button></form>
+<div id="err"></div>
+<div id="out"></div>
+<script>
+const BLOB = {"salt": "XzONRpqsVyKRV2nkWlDYvA==", "iv": "J6xEmI7bb6yZVlue", "ct": "GDVL5Goo3d1lcRcJS8BthFu6twpqG2TRAX3AdJBB3rMYQBaBfSmThG6Ws7Ipj1dcsHSpik9xWiCrjSv2BVUIuDJzOvtNdlNY6sIXh9KwnamF+h3zkXCn8g1bK0vvJq08vfx9PvB3g+J9s0ksoyRf3Sd/168kYf6seZbuOtbOIu44A8anjNOW/DPseFPZfThl7RKk7N8CxLfvOTjpRpj3icdKGl/B7v7KfA6kD8BaMD9piD9Ba3cK0vEzE9nCSx+uSC0HfHX28beJfprmE6nfOn1s492ODNWAA7N3RAZMsriacjntYqWmRgvYrrg2miZ2cbkjPNkyMZhjibvYf/EgCZvp1dfl+qBdZqB001DLudiFbbiRThC5aYLiu9mlG/Ew+WvF7ISSULI9anuIbysuLdEQvTWp9t/XN3q7L0Di/sWXfjEGubT7CSVzKyw6THo87moKAmYysx4aDM9MwSERYyTP8Je48m1MHSox6fp2+oQVokpIsMoLEdw8/GSEzDj7ZjU+HR9rVwJuo63A0Th3+LTEFzBqKuAxL+z/NNuuJHr8fs2qnJBCJ5T1S4QQ1tzlyke10N+twue3DDrYFDuKwjoxlIaPRMO3Q2p2uYBbXfM5w9LCyEqdq3lD8NVST1WnmgnxwUk27RvvRaM8Do9abt6Ld3TrYE/t62GOsC1V93TnON8MfAk0T9ezpnxuQ62bCRTqqoBJPRnR1OufwqKy1LrrdxQOh2EmMTsA9Imb1V4FePcSP+fvkfvDr0t+aMMw5WykoFMe7cpNh4VKnqI06xlG1PHEjr90MSRS8/Qf2i6WZA6evgHALkrdAq3X8tARkkuQ2rDm/prgp8CxHSOHUmZl1q43odYP2aOH9gq+yPV6xD2QJ7A7UppGrLH+C/gFY/dF0hWOuQGdqD3KtOGg1DJJaaF9QwlAxhrG104nYjgoysSoS8pz86N6PUZlgBPxR8/K48VMtpJq9TBsoJATp7sMdb3IzeKSOAEUBtHPnMaES6RQC+dbH75tUr3bQaiFQWo=", "iters": 200000};
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+document.getElementById("f").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const err = document.getElementById("err"); err.textContent = "";
+  const pc = document.getElementById("pc").value.trim();
+  try {
+    const km = await crypto.subtle.importKey("raw", new TextEncoder().encode(pc), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: b64(BLOB.salt), iterations: BLOB.iters, hash: "SHA-256" },
+      km, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(BLOB.iv) }, key, b64(BLOB.ct));
+    const data = JSON.parse(new TextDecoder().decode(pt));
+    let h = "";
+    for (const qz of data.quizzes) {
+      h += '<div class="quiz"><h2>' + qz.title + "</h2>";
+      for (const it of qz.items)
+        h += '<div class="item">Question ' + it.q + ': <span class="ans">(' + it.answer + ')</span> &mdash; ' + it.why + "</div>";
+      h += "</div>";
+    }
+    document.getElementById("out").innerHTML = h;
+  } catch (e) {
+    err.textContent = "Incorrect passcode.";
+  }
+});
+</script>
+</body>
+</html>
