@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab Research Meeting Sign-ups</title>
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #222; background: #fff; }
+  h1 { font-size: 1.6rem; border-bottom: 3px solid #1E407C; padding-bottom: .4rem; }
+  h2 { font-size: 1.2rem; color: #1E407C; margin-top: 2rem; }
+  p.note { color: #444; }
+  table { border-collapse: collapse; width: 100%; margin: .75rem 0 1.5rem; font-size: .95rem; }
+  th, td { border: 1px solid #bbb; padding: .45rem .6rem; text-align: left; vertical-align: top; }
+  th { background: #f0f3f8; }
+  td.open { color: #1a7a1a; font-weight: bold; }
+  td.taken { color: #333; }
+  td.pending { color: #8a6d00; font-style: italic; }
+  form { border: 1px solid #bbb; background: #fafafa; padding: 1rem 1.25rem; margin: 1rem 0 2rem; }
+  label { display: block; margin: .6rem 0 .2rem; font-weight: bold; }
+  select, input[type=text] { width: 100%; max-width: 460px; padding: .4rem; font-size: 1rem; font-family: inherit; }
+  button { margin-top: 1rem; background: #1E407C; color: #fff; border: 0; padding: .55rem 1.4rem; font-size: 1rem; cursor: pointer; }
+  button:disabled { background: #999; }
+  #result { margin-top: .9rem; font-weight: bold; }
+  #result.ok { color: #1a7a1a; }
+  #result.err { color: #a11; }
+  .stamp { color: #777; font-size: .85rem; }
+</style>
+</head>
+<body>
+<h1>Lab Research Meeting Sign-ups</h1>
+<p class="note">Sign up to present or lead one meeting. Two separate sign-ups &mdash; the
+<strong>methods research meeting</strong> (Fridays 11&ndash;12) and the
+<strong>applied research meeting</strong> (Tuesdays 2&ndash;3), both in Huddle room 432. One slot
+per meeting; no account of any kind is needed. Claims are honored strictly in the order received
+(the queue is stamped by the server the moment you submit).</p>
+
+<form id="claimform">
+  <label for="ctype">Which meeting?</label>
+  <select id="ctype">
+    <option value="methods">Methods research meeting (Fri 11&ndash;12)</option>
+    <option value="applied">Applied research meeting (Tue 2&ndash;3)</option>
+  </select>
+  <label for="cweek">Date</label>
+  <select id="cweek"></select>
+  <label for="cname">Your name (as it should appear on the sheet)</label>
+  <input type="text" id="cname" maxlength="80" autocomplete="name">
+  <button type="submit" id="gobtn">Claim slot</button>
+  <div id="result"></div>
+</form>
+
+<h2>Methods research meeting</h2>
+<div id="methods_tbl">Loading&hellip;</div>
+<h2>Applied research meeting</h2>
+<div id="applied_tbl">Loading&hellip;</div>
+<p class="stamp" id="refreshed"></p>
+<p class="note">Entries marked <em>pending</em> have been received and will appear on the official
+sheets within about ten minutes. The official record lives in the
+<a href="https://github.com/bdesmarais/lab-meeting-signups">sign-up repository</a>.</p>
+
+<script>
+const RAW = "https://raw.githubusercontent.com/bdesmarais/lab-meeting-signups/main/";
+const NTFY = "https://ntfy.sh/lab-signups-f82be3e70c4343e1";
+const SHEETS = { methods: "METHODS.md", applied: "APPLIED.md" };
+const LABEL = { methods: "methods research meeting", applied: "applied research meeting" };
+let state = null;
+
+function parseSheet(md) {
+  const rows = [];
+  for (const line of md.split("\n")) {
+    const m = line.match(/^\|\s*(\d\d\/\d\d)\s*\|([^|]*)\|/);
+    if (m) rows.push({ date: m[1], slot: m[2].trim() });
+  }
+  return rows;
+}
+
+async function loadAll() {
+  const bust = "?t=" + Date.now();
+  const [mMd, aMd, qRes, procTxt] = await Promise.all([
+    fetch(RAW + SHEETS.methods + bust).then(r => r.text()),
+    fetch(RAW + SHEETS.applied + bust).then(r => r.text()),
+    fetch(NTFY + "/json?poll=1&since=all").then(r => r.text()).catch(() => ""),
+    fetch(RAW + "processed.json" + bust).then(r => r.json()).catch(() => ({processed: []}))
+  ]);
+  const processed = new Set(procTxt.processed || []);
+  const sheets = { methods: parseSheet(mMd), applied: parseSheet(aMd) };
+  const queue = [];
+  for (const line of qRes.split("\n")) {
+    if (!line.trim()) continue;
+    try {
+      const ev = JSON.parse(line);
+      if (ev.event !== "message" || processed.has(ev.id)) continue;
+      const c = JSON.parse(ev.message);
+      if (c && c.type in sheets && c.week && c.name)
+        queue.push({ time: ev.time, id: ev.id, ...c });
+    } catch (e) { /* ignore non-claim messages */ }
+  }
+  queue.sort((a, b) => a.time - b.time || (a.id < b.id ? -1 : 1));
+  for (const c of queue) {
+    const rows = sheets[c.type];
+    const row = rows.find(r => r.date === c.week);
+    if (!row) continue;
+    if (rows.some(r => r.slot.startsWith(c.name))) continue;   // one slot per person per sheet
+    if (row.slot === "OPEN") { row.slot = c.name; row.pending = true; }
+  }
+  state = sheets;
+  render();
+}
+
+function render() {
+  for (const key of ["methods", "applied"]) {
+    let h = "<table><tr><th>Date</th><th>Presenter</th></tr>";
+    for (const r of state[key]) {
+      const cell = r.slot === "OPEN"
+        ? '<td class="open">OPEN</td>'
+        : '<td class="' + (r.pending ? 'pending">' : 'taken">') +
+          r.slot.replace(/&/g,"&amp;").replace(/</g,"&lt;") + (r.pending ? " (pending)" : "") + "</td>";
+      h += "<tr><td>" + r.date + "</td>" + cell + "</tr>";
+    }
+    document.getElementById(key + "_tbl").innerHTML = h + "</table>";
+  }
+  const sel = document.getElementById("cweek");
+  const key = document.getElementById("ctype").value;
+  const keep = sel.value;
+  sel.innerHTML = "";
+  const ph = document.createElement("option");
+  ph.value = ""; ph.textContent = "— select a date —"; ph.disabled = true; ph.selected = true;
+  sel.appendChild(ph);
+  for (const r of state[key]) {
+    if (r.slot === "OPEN") {
+      const o = document.createElement("option");
+      o.value = r.date; o.textContent = r.date;
+      sel.appendChild(o);
+    }
+  }
+  if (sel.options.length === 1) {
+    ph.textContent = "(no open dates remain)";
+  } else if (keep && [...sel.options].some(o => o.value === keep)) {
+    sel.value = keep;
+  }
+  document.getElementById("refreshed").textContent =
+    "Availability refreshed " + new Date().toLocaleTimeString() + ". It refreshes automatically.";
+}
+
+document.getElementById("ctype").addEventListener("change", render);
+
+// preselect the meeting from ?m=methods / ?m=applied
+(function () {
+  const m = new URLSearchParams(location.search).get("m");
+  if (m === "applied" || m === "methods") document.getElementById("ctype").value = m;
+})();
+
+document.getElementById("claimform").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const res = document.getElementById("result");
+  const type = document.getElementById("ctype").value;
+  const week = document.getElementById("cweek").value;
+  const clean = s => s.replace(/[|\n\r]/g, " ").trim();
+  const name = clean(document.getElementById("cname").value);
+  res.className = "err";
+  if (!week)  { res.textContent = "Please select a date."; return; }
+  if (!name)  { res.textContent = "Please enter your name."; return; }
+  const btn = document.getElementById("gobtn");
+  btn.disabled = true; res.className = ""; res.textContent = "Submitting…";
+  try {
+    const r = await fetch(NTFY, { method: "POST", body: JSON.stringify({ type, week, name }) });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    res.className = "ok";
+    res.textContent = "Claim received for the " + LABEL[type] + " on " + week +
+                      ". Your name shows as pending below right away and moves onto the official sheet within about ten minutes.";
+    document.getElementById("cname").value = "";
+    setTimeout(loadAll, 800);
+  } catch (e) {
+    res.className = "err";
+    res.textContent = "Submission did not go through (" + e.message + "). Please try again.";
+  }
+  btn.disabled = false;
+});
+
+loadAll();
+setInterval(loadAll, 30000);
+</script>
+</body>
+</html>
