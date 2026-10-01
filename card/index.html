@@ -28,19 +28,27 @@
          min-height: 100vh; display: flex; justify-content: center; padding: 24px 16px 40px; }
   .card { width: 100%; max-width: 420px; background: var(--card); border-radius: 20px; overflow: hidden;
           box-shadow: 0 10px 30px rgba(0, 30, 68, .12); border: 1px solid var(--line); }
-  .band { background: linear-gradient(135deg, var(--navy), var(--beaver)); height: 96px; }
+  .band { background: linear-gradient(135deg, var(--navy), var(--beaver)); height: 128px; position: relative; }
+  .band img { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); height: 30px; width: auto; opacity: .95; }
   .photo { width: 116px; height: 116px; border-radius: 50%; border: 4px solid var(--card);
-           display: block; margin: -62px auto 0; object-fit: cover; background: var(--card); }
+           display: block; margin: -62px auto 0; object-fit: cover; background: var(--card); position: relative; z-index: 1; }
   .body { padding: 14px 24px 26px; text-align: center; }
   h1 { font-size: 1.55rem; margin: 6px 0 4px; letter-spacing: -.01em; }
   .role { color: var(--muted); font-size: .95rem; margin: 0; }
   .orgs { margin: 18px 0 6px; text-align: left; border-top: 1px solid var(--line); }
   .org { display: flex; gap: 12px; align-items: flex-start; padding: 12px 2px; border-bottom: 1px solid var(--line); }
-  .badge { flex: 0 0 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
-           font-weight: 700; font-size: .8rem; color: #fff; background: var(--navy); }
-  .badge.gf { background: #0E7C66; }
+  .badge { flex: 0 0 40px; width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
   .org b { display: block; font-size: .98rem; }
   .org span { color: var(--muted); font-size: .88rem; }
+  .tiles { display: grid; gap: 14px; margin-top: 18px; text-align: left; }
+  .tile { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--ghost); }
+  .tile img.shot { display: block; width: 100%; height: auto; }
+  .tile .cap { padding: 10px 12px 12px; }
+  .tile .cap img { height: 22px; width: auto; display: block; margin-bottom: 4px; }
+  .tile .cap b { display: block; font-size: .95rem; }
+  .tile .cap span { color: var(--muted); font-size: .85rem; }
+  .tile .cap img.gf-dark { display: none; }
+  @media (prefers-color-scheme: dark) { .tile .cap img.gf-light { display: none; } .tile .cap img.gf-dark { display: block; } }
   .actions { display: grid; gap: 10px; margin-top: 18px; }
   .btn { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px;
          border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem;
@@ -57,7 +65,7 @@
 </head>
 <body>
 <main class="card">
-  <div class="band" aria-hidden="true"></div>
+  <div class="band"><img src="img/psu_la_white.png" alt="Penn State College of the Liberal Arts"></div>
   <img class="photo" src="headshot.jpg" alt="Bruce A. Desmarais">
   <div class="body">
     <h1>Bruce A. Desmarais</h1>
@@ -65,15 +73,31 @@
 
     <div class="orgs">
       <div class="org">
-        <div class="badge" aria-hidden="true">PSU</div>
+        <img class="badge" src="img/psu_shield.png" alt="">
         <div><b>Penn State University</b>
           <span>Director, Center for Social Data Analytics · Head, Programs in Social Data Analytics · Department of Political Science</span></div>
       </div>
       <div class="org">
-        <div class="badge gf" aria-hidden="true">GF</div>
+        <img class="badge" src="img/govfeeds_icon.png" alt="">
         <div><b>GovFeeds</b>
           <span>Co-founder · Social media benchmarks for local government</span></div>
       </div>
+    </div>
+
+    <div class="tiles">
+      <a class="tile" href="https://govfeeds.com">
+        <img class="shot" src="img/govfeeds_app.jpg" alt="The GovFeeds app showing what local governments in Pennsylvania are posting">
+        <div class="cap">
+          <img class="gf-light" src="img/govfeeds-lockup-v3.png" alt="GovFeeds">
+          <img class="gf-dark" src="img/govfeeds-lockup-white-v2.png" alt="GovFeeds">
+          <span>See how your city or county compares on social media to 5,000+ peer governments.</span>
+        </div>
+      </a>
+      <a class="tile" href="https://brucedesmarais.com">
+        <img class="shot" src="img/network.jpg" alt="A network graph from Bruce Desmarais's research on generalized exponential random graph models">
+        <div class="cap"><b>Research</b>
+          <span>Political networks, policy diffusion, and computational social science.</span></div>
+      </a>
     </div>
 
     <div class="actions">
