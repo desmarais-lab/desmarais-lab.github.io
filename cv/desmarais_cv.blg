@@ -5,45 +5,45 @@ The style file: plain.bst
 Database file #1: vitabib.bib
 Name 1 in "Janet Box-Steffensmeier, Dino Christenson, and Valeria Sinclair-Chapman" has a comma at the end for entry gopal2023chapter
 while executing---line 1090 of file plain.bst
-You've used 75 entries,
+You've used 79 entries,
             2118 wiz_defined-function locations,
-            964 strings with 19665 characters,
-and the built_in function-call counts, 27139 in all, are:
-= -- 2633
-> -- 1515
-< -- 8
-+ -- 598
-- -- 514
-* -- 2117
-:= -- 4600
-add.period$ -- 233
-call.type$ -- 75
-change.case$ -- 474
+            989 strings with 20689 characters,
+and the built_in function-call counts, 29244 in all, are:
+= -- 2850
+> -- 1612
+< -- 12
++ -- 637
+- -- 548
+* -- 2282
+:= -- 4915
+add.period$ -- 247
+call.type$ -- 79
+change.case$ -- 503
 chr.to.int$ -- 0
-cite$ -- 75
-duplicate$ -- 911
-empty$ -- 1956
-format.name$ -- 514
-if$ -- 5518
+cite$ -- 79
+duplicate$ -- 986
+empty$ -- 2113
+format.name$ -- 548
+if$ -- 5972
 int.to.chr$ -- 0
-int.to.str$ -- 75
-missing$ -- 72
-newline$ -- 378
-num.names$ -- 156
-pop$ -- 416
+int.to.str$ -- 79
+missing$ -- 76
+newline$ -- 400
+num.names$ -- 164
+pop$ -- 440
 preamble$ -- 1
-purify$ -- 404
+purify$ -- 429
 quote$ -- 0
-skip$ -- 630
+skip$ -- 692
 stack$ -- 0
-substring$ -- 1660
-swap$ -- 150
-text.length$ -- 8
+substring$ -- 1845
+swap$ -- 180
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 298
+type$ -- 314
 warning$ -- 0
-while$ -- 252
-width$ -- 77
-write$ -- 821
+while$ -- 275
+width$ -- 81
+write$ -- 873
 (There was 1 error message)

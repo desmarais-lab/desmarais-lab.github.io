@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  16 APR 2026 19:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  12 NOV 2026 10:51
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **desmarais_cv.tex
 (./desmarais_cv.tex
@@ -106,7 +105,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 35.
 
-Overfull \hbox (1.40857pt too wide) in paragraph at lines 101--102
+Overfull \hbox (1.40857pt too wide) in paragraph at lines 103--104
 []\OT1/cmr/m/n/10 Yuehong Cas-san-dra Tai, Nithee-sha Nakka, Sarah Ra-jt-ma-jer
 , Kevin Munger, Yu-Ru Lin, and Bruce A.
  []
@@ -120,29 +119,16 @@ Overfull \hbox (1.40857pt too wide) in paragraph at lines 101--102
 [2]
 
 [3]
-Overfull \hbox (11.94737pt too wide) in paragraph at lines 155--156
+Overfull \hbox (11.94737pt too wide) in paragraph at lines 157--158
 []\OT1/cmr/m/n/10 Jeffrey J. Harden and Bruce A. Des-marais.  Lin-ear Mod-els w
 ith Out-liers: Choos-ing Be-tween Conditional-
  []
 
 
 
-[4] (./desmarais_cv.bbl)
+[4]
 
-[5]
-
-./desmarais_cv.tex:208: LaTeX Error: Something's wrong--perhaps a missing \item
-.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.208 \item `
-             Ideology, Institutions, and the Online Spread of Harmful Conten...
-
-? 
-
+[5] (./desmarais_cv.bbl)
 
 [6]
 
@@ -155,30 +141,32 @@ l.208 \item `
 
 [10]
 
-[11] (./desmarais_cv.aux)
+[11]
+
+[12] (./desmarais_cv.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 1712 strings out of 473190
- 29411 string characters out of 5715801
- 439728 words of memory out of 5000000
- 24997 multiletter control sequences out of 15000+600000
+ 1730 strings out of 473190
+ 29757 string characters out of 5715801
+ 440818 words of memory out of 5000000
+ 25015 multiletter control sequences out of 15000+600000
  560599 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,8n,52p,834b,417s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 49i,8n,52p,866b,433s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
 usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on desmarais_cv.pdf (11 pages, 123982 bytes).
+Output written on desmarais_cv.pdf (12 pages, 126541 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 74 PDF objects out of 1000 (max. 8388607)
+ 47 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -29,7 +29,7 @@ Ahana Biswas, Yu-Ru Lin, Yuehong~Cassandra Tai, and Bruce~A Desmarais.
 \newblock Political elites in the attention economy: Visibility over civility
   and credibility?
 \newblock In {\em 19th International Conference on Web and Social Media, ICWSM
-  2025}. AAAI Press, Accepted.
+  2025}, volume~19, pages 241--258. AAAI Press, 2025.
 
 \bibitem{boehmke2020spid}
 Frederick~J Boehmke, Mark Brockway, Bruce~A Desmarais, Jeffrey~J Harden, Scott
@@ -239,31 +239,32 @@ Rebekah Fyfe and Bruce Desmarais.
 \newblock Causal evidence for theories of contagious civil unrest.
 \newblock {\em International Studies Quarterly}, 68(4):sqae124, 2024.
 
+\bibitem{gopal2023chapter}
+Ishita Gopal and Bruce Desmarais.
+\newblock The network science of public policy diffusion.
+\newblock In Dino~Christenson Janet Box-Steffensmeier and Valeria
+  Sinclair-Chapman, editors, {\em The Oxford Handbook of Methodological
+  Pluralism}. Oxford University Press, 2023.
+
 \bibitem{gopal2024ans}
 Ishita Gopal and Bruce Desmarais.
 \newblock Legislative support for environmental policy innovation: an
   experimental test for diffusion through a cross-state policy network.
 \newblock {\em Applied Network Science}, 9(1):79, 2024.
 
-\bibitem{gopal2023chapter}
-Ishita Gopal and Bruce Desmarais.
-\newblock The network science of public policy diffusion.
-\newblock In Dino~Christenson Janet Box-Steffensmeier and Valeria
-  Sinclair-Chapman, editors, {\em The Oxford Handbook of Methodological
-  Pluralism}. Oxford University Press, Forthcoming.
-
 \bibitem{gopalPSRM}
 Ishita Gopal, Taegyoon Kim, Nitheesha Nakka, Frederick~J. Boehmke, Jeffrey~J.
   Harden, and Bruce~A. Desmarais.
 \newblock {The National Network of U.S. State Legislators on Twitter}.
-\newblock {\em {Political Science Research \& Methods}}, {Accepted}.
+\newblock {\em {Political Science Research \& Methods}}, 13(4):1042--1054,
+  2024.
 
 \bibitem{gordon2025son}
 Sarah~J. Gordon, Wayne~E. Baker, Jose Uribe, Cassandra Chambers, and Bruce~A.
   Desmarais.
 \newblock Networks of inclusion: Using teams and technology to create diverse
   social capital.
-\newblock {\em Social Networks}, Accepted.
+\newblock {\em Social Networks}, 83:120--133, 2025.
 
 \bibitem{Harden:2011}
 Jeffrey~J. Harden and Bruce~A. Desmarais.
@@ -283,6 +284,12 @@ Sangyeon Kim, Howard Liu, and Bruce Desmarais.
   actors.
 \newblock {\em Political Science Research and Methods}, 11(3):633--644, 2023.
 
+\bibitem{kim2026palsr}
+Sangyeon Kim, Howard Liu, and Bruce~A. Desmarais.
+\newblock {palsr}: {P}rojected {A}ctor {L}ocations for spatial modeling of
+  dyadic interactions between moving actors.
+\newblock {\em SoftwareX}, Accepted.
+
 \bibitem{kim2020effects}
 Sangyeon Kim, Omer~F Yalcin, Samuel~E Bestvater, Kevin Munger, Burt~L Monroe,
   and Bruce~A Desmarais.
@@ -297,6 +304,13 @@ Taegyoon Kim, Nitheesha Nakka, Ishita Gopal, Bruce~A Desmarais, Abigail
 \newblock Attention to the covid-19 pandemic on twitter: Partisan differences
   among us state legislators.
 \newblock {\em Legislative studies quarterly}, 47(4):1023--1041, 2022.
+
+\bibitem{kim2026vaccine}
+Taegyoon Kim, Xinyu Wang, Sarah Rajtmajer, Jeffrey~J. Harden, Frederick~J.
+  Boehmke, and Bruce~A. Desmarais.
+\newblock Elected officials' online anti-vaccination statements respond to
+  online engagement.
+\newblock {\em Vaccine}, Accepted.
 
 \bibitem{Krafft:2012}
 Peter Krafft, Juston Moore, Bruce Desmarais, and Hanna Wallach.
@@ -338,6 +352,15 @@ T.~Marple, B.~Desmarais, and K.~L. Young.
 \newblock In {\em 2017 IEEE International Conference on Big Data (Big Data)},
   pages 2637--2643, Dec 2017.
 
+\bibitem{nakka2026short}
+Nitheesha Nakka, Omer~F. Yalcin, Bruce~A. Desmarais, Sarah Rajtmajer, and
+  Burt~L. Monroe.
+\newblock The study of short texts in digital politics: Document aggregation
+  for topic modeling.
+\newblock In {\em 2026 IEEE International Conference on Big Data (Big Data)},
+  2026.
+\newblock Forthcoming.
+
 \bibitem{NeumannJITP}
 Markus Neumann, Fridolin Linder, and Bruce Desmarais.
 \newblock Government websites as data: a methodological pipeline with
@@ -356,7 +379,7 @@ Issac Pollert, Johabed Olvera, Bruce~A. Desmarais, Frederick~J. Boehmke, and
   Jeffrey~J. Harden.
 \newblock Collaborative diffusion: The dynamics of policy output in covid-19
   interstate compacts.
-\newblock {\em Policy Studies Journal}, Accepted.
+\newblock {\em Policy Studies Journal}, 53(4):944--970, 2025.
 
 \bibitem{schmid2017}
 C.~S. Schmid and B.~A. Desmarais.
@@ -419,23 +442,32 @@ Yuehong~Cassandra Tai, Roan Buma, and Bruce~A Desmarais.
 
 \bibitem{tai2025pc}
 Yuehong~Cassandra Tai, Yu-Ru Lin, and Bruce~A. Desmarais.
-\newblock Public officials’ online sharing of low-factual content:
-  Institutional and ideological checks.
-\newblock {\em Political Communication}, Accepted.
+\newblock Elected officials' online sharing of misinformation: Institutional
+  and ideological checks.
+\newblock {\em Political Communication}, pages 1--19, 2026.
+
+\bibitem{tai2026aiuse}
+Yuehong~Cassandra Tai, Nitheesha Nakka, and Bruce~A. Desmarais.
+\newblock {AI} use in {U.S.} local government communications: Prevalence and
+  reach on social media.
+\newblock In {\em 2026 IEEE International Conference on Big Data (Big Data),
+  11th International Workshop on Application of Big Data for Computational
+  Social Science (ABCSS)}, 2026.
+\newblock Forthcoming.
 
 \bibitem{tai2025sdata}
 Yuehong~Cassandra Tai, Nitheesha Nakka, Sarah Rajtmajer, Kevin Munger, Yu-Ru
   Lin, and Bruce~A. Desmarais.
 \newblock The digitally accountable public representation database: Online
   communication by u.s. officials.
-\newblock {\em Scientific Data}, Accepted.
+\newblock {\em Scientific Data}, 12, 2025.
 
 \bibitem{tai2025genai}
 Yuehong~Cassandra Tai, Khushi Navin~Patni, Nicholas~Daniel Hemauer, Bruce
   Desmarais, and Yu-Ru Lin.
 \newblock Genai vs. human fact-checkers: Accurate ratings, flawed rationales.
 \newblock In {\em Companion Publication of the 17th ACM Web Science
-  Conference}, Accepted.
+  Conference}, pages 516--521, 2025.
 
 \bibitem{MedhaPA}
 Medha Uppala and Bruce~A Desmarais.

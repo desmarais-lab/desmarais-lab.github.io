@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: desmarais_cv5p.aux
+The style file: plain.bst
+Database file #1: vitabib.bib
+Name 1 in "Janet Box-Steffensmeier, Dino Christenson, and Valeria Sinclair-Chapman" has a comma at the end for entry gopal2023chapter
+while executing---line 1090 of file plain.bst
+You've used 25 entries,
+            2118 wiz_defined-function locations,
+            662 strings with 9923 characters,
+and the built_in function-call counts, 10039 in all, are:
+= -- 951
+> -- 623
+< -- 6
++ -- 246
+- -- 216
+* -- 803
+:= -- 1709
+add.period$ -- 81
+call.type$ -- 25
+change.case$ -- 179
+chr.to.int$ -- 0
+cite$ -- 25
+duplicate$ -- 327
+empty$ -- 686
+format.name$ -- 216
+if$ -- 2036
+int.to.chr$ -- 0
+int.to.str$ -- 25
+missing$ -- 26
+newline$ -- 129
+num.names$ -- 56
+pop$ -- 170
+preamble$ -- 1
+purify$ -- 155
+quote$ -- 0
+skip$ -- 219
+stack$ -- 0
+substring$ -- 567
+swap$ -- 62
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 98
+warning$ -- 0
+while$ -- 89
+width$ -- 27
+write$ -- 280
+(There was 1 error message)
